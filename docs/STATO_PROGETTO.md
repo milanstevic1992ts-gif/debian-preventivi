@@ -39,7 +39,7 @@ Roadmap iniziale, da dettagliare solo dopo l'ispezione dei sorgenti V1:
 
 ## Parcheggio
 
-Nessuna proposta fuori task registrata in questa sessione.
+- **2026-11-10 — Interoperabilità API GE360 (richiesta utente; non ancora implementata):** mantenere una API REST documentata e stabile per permettere in futuro a software GE360 separati di leggere e sincronizzare sopralluoghi, misure, checklist, esiti e, quando autorizzato, foto. Base già presente in `backend/app.py`: endpoint `/api/*` con autenticazione a cookie, export JSON, UUID e controllo di versione (`409` sui conflitti). Da progettare in task dedicato **dopo il collaudo locale Debian 13**: API pubblicamente versionata (`/api/v1`), autenticazione macchina-macchina separata dalle sessioni PWA, token revocabili con permessi minimi, OpenAPI/schema documentato, sincronizzazione incrementale e idempotente con conflitti e archiviazioni espliciti. Accesso solo tramite HTTPS privato Tailscale Serve; nessuna esposizione Internet, chiave nel repository, nuovo servizio, webhook o integrazione con software non ancora definiti. Non cambiare gli endpoint esistenti senza piano di compatibilità.
 
 ## Verifica pacchetto V1 — 2026-11-10
 
@@ -72,3 +72,5 @@ Nessuna proposta fuori task registrata in questa sessione.
 - **2026-11-10 — `audit/verifica-pacchetto-pwa-v1`:** reperito lo ZIP in Libreria e controllata struttura, integrità, assenza dei file vietati e presenza dei sorgenti. Test isolati: 8 Python e 9 JS superati; sintassi Python/JS/Bash superata. Segnalato lo script che fa push a `main`; non importato né pubblicato alcun file dello ZIP. Prossimo passo: importazione sicura V1 in branch dedicato.
 
 - **2026-11-10 — `feat/import-pwa-v1`:** importati 32 file applicativi e tecnici dalla V1 con controllo hash, mantenuta la documentazione iniziale, messo in sicurezza lo script di pubblicazione, aggiornati i riferimenti all'installazione; test isolati: 8 Python e 9 JS superati, sintassi e blocco `main` verificati. Nessun deploy o merge. Prossimo passo: collaudo locale Debian 13 dopo integrazione autorizzata.
+
+- **2026-11-10 — Requisito futuro richiesto:** confermata la presenza delle API FastAPI di base; registrata nel Parcheggio la futura interoperabilità con altri software GE360. Nessun nuovo endpoint o protocollo di sincronizzazione implementato, nessuna modifica al prossimo passo di collaudo locale Debian.
