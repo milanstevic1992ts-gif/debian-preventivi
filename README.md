@@ -15,8 +15,8 @@ Vedi [sviluppo locale senza crediti](docs/SVILUPPO_SENZA_CREDITI.md).
 
 ## Stato del repository
 
-**Configurazione iniziale presente.** Il caricamento integrale della PWA V1 da `GE360_SMART_PWA_V1_GITHUB_READY_AGGIORNATO.zip` è ancora da completare. Non presumere che il solo clone di questo repository sia già avviabile.
+**Sorgenti PWA V1 importati in questa revisione** da `GE360_SMART_PWA_V1_GITHUB_READY_AGGIORNATO.zip`: presenti `backend/`, `frontend/`, `config/`, `tests/`, `scripts/`, `Dockerfile` e `docker-compose.yml`.
 
-Una volta pubblicati i sorgenti, saranno presenti `backend/`, `frontend/`, `config/`, `tests/`, `scripts/`, `Dockerfile` e `docker-compose.yml`.
+**La presenza dei sorgenti non equivale a un'installazione eseguita sul Debian 13.** I test di base sono stati eseguiti in ambiente isolato; prima di usare dati reali seguire `docs/INSTALLAZIONE_DEBIAN.md`, verificare il servizio locale e collaudare Android/Tailscale. Lo stato aggiornato è in `docs/STATO_PROGETTO.md`.
 
 > Il repository è **pubblico**: non aggiungere `.env`, token, password, foto dei clienti, backup e database. Il file `.gitignore` protegge alcuni casi comuni, ma ogni commit va controllato prima del push.

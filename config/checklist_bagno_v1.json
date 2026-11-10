@@ -1,0 +1,2243 @@
+{
+  "$schema_name": "ge360.bagno.checklist",
+  "version": "1.1.0",
+  "title": "GE360 Smart Rilievi – Bagno: demolizione rivestimenti + nuovo pavimento + rivestimenti pareti",
+  "pricing_engine_target": "EDIL_MILAN_STEVIC_PREVENTIVI_PREMIUM_V3_1",
+  "statuses": [
+    "CONFERMATO_COMPRESO",
+    "DA_VERIFICARE",
+    "OPZIONALE",
+    "ESCLUSO",
+    "NON_PERTINENTE"
+  ],
+  "tri_state": [
+    "si",
+    "no",
+    "da_verificare"
+  ],
+  "sections": [
+    {
+      "id": "base",
+      "title": "01 · Identificazione",
+      "description": "Informazioni necessarie una volta per ogni sopralluogo."
+    },
+    {
+      "id": "geometria",
+      "title": "02 · Misurazioni",
+      "description": "Il rilievo di pavimento, pareti e aperture viene riutilizzato."
+    },
+    {
+      "id": "stato",
+      "title": "03 · Stato attuale",
+      "description": "Supporti e componenti che restano o che interferiscono."
+    },
+    {
+      "id": "demolizione",
+      "title": "04 · Demolizioni",
+      "description": "Distinguere rivestimenti, massetto e intonaci."
+    },
+    {
+      "id": "pavimento",
+      "title": "05 · Pavimento nuovo",
+      "description": "Posa, dettagli, materiali e compatibilità del fondo."
+    },
+    {
+      "id": "pareti",
+      "title": "06 · Rivestimenti pareti",
+      "description": "Altezze per muro, dettagli della posa e zone umide."
+    },
+    {
+      "id": "logistica",
+      "title": "07 · Logistica e responsabilità",
+      "description": "Accesso, forniture, rifiuti e protezioni."
+    },
+    {
+      "id": "riepilogo",
+      "title": "08 · Verifica e conferma",
+      "description": "Quantità ed esclusioni prima del preventivo."
+    }
+  ],
+  "questions": [
+    {
+      "id": "cliente.nome",
+      "label": "Cliente / riferimento",
+      "type": "text",
+      "required_when_visible": true
+    },
+    {
+      "id": "cliente.telefono",
+      "label": "Telefono",
+      "type": "phone",
+      "required_when_visible": false
+    },
+    {
+      "id": "immobile.indirizzo",
+      "label": "Indirizzo immobile",
+      "type": "text",
+      "required_when_visible": true
+    },
+    {
+      "id": "immobile.piano",
+      "label": "Piano",
+      "type": "integer",
+      "required_when_visible": true
+    },
+    {
+      "id": "ambiente.nome",
+      "label": "Identificativo ambiente",
+      "type": "text",
+      "required_when_visible": true,
+      "help": "Es. bagno principale; ID stabile per versioni successive"
+    },
+    {
+      "id": "sopralluogo.data",
+      "label": "Data sopralluogo",
+      "type": "date",
+      "required_when_visible": true
+    },
+    {
+      "id": "sopralluogo.stato",
+      "label": "Stato rilevazione",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "in_corso",
+        "completo",
+        "da_verificare"
+      ]
+    },
+    {
+      "id": "interventi.demolizione_rivestimenti",
+      "label": "Demolire rivestimenti esistenti?",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "si",
+        "no",
+        "da_verificare"
+      ]
+    },
+    {
+      "id": "interventi.nuovo_pavimento",
+      "label": "Realizzare nuovo pavimento?",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "si",
+        "no",
+        "da_verificare"
+      ]
+    },
+    {
+      "id": "interventi.rivestimento_pareti",
+      "label": "Realizzare nuovo rivestimento pareti?",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "si",
+        "no",
+        "da_verificare"
+      ]
+    },
+    {
+      "id": "ambiente.in_uso",
+      "label": "Il bagno resterà utilizzabile durante i lavori?",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "si",
+        "no",
+        "da_verificare"
+      ]
+    },
+    {
+      "id": "geometria.forma",
+      "label": "Forma del pavimento",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "rettangolare",
+        "irregolare",
+        "da_verificare"
+      ]
+    },
+    {
+      "id": "geometria.lunghezza",
+      "label": "Lunghezza massima",
+      "type": "decimal",
+      "required_when_visible": true,
+      "visible_when": {
+        "eq": [
+          "geometria.forma",
+          "rettangolare"
+        ]
+      },
+      "unit": "m"
+    },
+    {
+      "id": "geometria.larghezza",
+      "label": "Larghezza massima",
+      "type": "decimal",
+      "required_when_visible": true,
+      "visible_when": {
+        "eq": [
+          "geometria.forma",
+          "rettangolare"
+        ]
+      },
+      "unit": "m"
+    },
+    {
+      "id": "geometria.superficie_rilevata",
+      "label": "Superficie da poligono o misura manuale",
+      "type": "decimal",
+      "required_when_visible": true,
+      "visible_when": {
+        "eq": [
+          "geometria.forma",
+          "irregolare"
+        ]
+      },
+      "unit": "m²"
+    },
+    {
+      "id": "geometria.metodo_misura",
+      "label": "Metodo di rilevazione",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "laser",
+        "metro",
+        "planimetria_da_verificare",
+        "altro"
+      ]
+    },
+    {
+      "id": "geometria.muri[].id",
+      "label": "Codice muro",
+      "type": "text",
+      "required_when_visible": true,
+      "repeat_in": "geometria.muri"
+    },
+    {
+      "id": "geometria.muri[].lunghezza",
+      "label": "Lunghezza parete",
+      "type": "decimal",
+      "required_when_visible": true,
+      "unit": "m",
+      "repeat_in": "geometria.muri"
+    },
+    {
+      "id": "geometria.muri[].altezza",
+      "label": "Altezza parete",
+      "type": "decimal",
+      "required_when_visible": true,
+      "unit": "m",
+      "repeat_in": "geometria.muri"
+    },
+    {
+      "id": "geometria.muri[].foto",
+      "label": "Foto parete",
+      "type": "photo",
+      "required_when_visible": false,
+      "repeat_in": "geometria.muri"
+    },
+    {
+      "id": "geometria.muri[].aperture[].larghezza",
+      "label": "Larghezza apertura",
+      "type": "decimal",
+      "required_when_visible": true,
+      "unit": "m",
+      "repeat_in": "geometria.muri[].aperture"
+    },
+    {
+      "id": "geometria.muri[].aperture[].altezza",
+      "label": "Altezza apertura",
+      "type": "decimal",
+      "required_when_visible": true,
+      "unit": "m",
+      "repeat_in": "geometria.muri[].aperture"
+    },
+    {
+      "id": "geometria.muri[].aperture[].quota_base",
+      "label": "Quota inferiore dal pavimento",
+      "type": "decimal",
+      "required_when_visible": true,
+      "unit": "m",
+      "repeat_in": "geometria.muri[].aperture"
+    },
+    {
+      "id": "geometria.muri[].aperture[].tipo",
+      "label": "Tipo apertura",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "porta",
+        "finestra",
+        "nicchia_aperta",
+        "altro"
+      ],
+      "repeat_in": "geometria.muri[].aperture"
+    },
+    {
+      "id": "geometria.muri[].zone_escluse[].area",
+      "label": "Area esclusa senza sovrapposizione aperture",
+      "type": "decimal",
+      "required_when_visible": false,
+      "unit": "m²",
+      "help": "Non sommare due volte con aperture o altre zone escluse",
+      "repeat_in": "geometria.muri[].zone_escluse"
+    },
+    {
+      "id": "stato.pavimento_attuale",
+      "label": "Finitura pavimento esistente",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "piastrella",
+        "resina",
+        "pvc",
+        "altro",
+        "non_visibile"
+      ]
+    },
+    {
+      "id": "stato.pareti_attuali",
+      "label": "Finitura pareti esistente",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "piastrella",
+        "pittura",
+        "misto",
+        "altro",
+        "non_visibile"
+      ]
+    },
+    {
+      "id": "stato.supporto_pavimento",
+      "label": "Condizione supporto pavimento",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "adeguato_verificato",
+        "non_planare",
+        "fessurato",
+        "distaccato",
+        "umido",
+        "non_visibile",
+        "da_verificare"
+      ],
+      "visible_when": {
+        "eq": [
+          "interventi.nuovo_pavimento",
+          "si"
+        ]
+      }
+    },
+    {
+      "id": "stato.supporto_pareti",
+      "label": "Condizione supporti pareti",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "adeguato_verificato",
+        "intonaco_debole",
+        "fessurato",
+        "umido",
+        "non_visibile",
+        "da_verificare"
+      ],
+      "visible_when": {
+        "eq": [
+          "interventi.rivestimento_pareti",
+          "si"
+        ]
+      }
+    },
+    {
+      "id": "stato.sanitari_interferenti",
+      "label": "Sanitari o mobili da smontare?",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "si",
+        "no",
+        "da_verificare"
+      ]
+    },
+    {
+      "id": "stato.responsabile_smontaggi",
+      "label": "Chi smonta/rimonta?",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "impresa",
+        "idraulico_terzo",
+        "committente",
+        "da_definire"
+      ],
+      "visible_when": {
+        "eq": [
+          "stato.sanitari_interferenti",
+          "si"
+        ]
+      }
+    },
+    {
+      "id": "stato.tubazioni_nascoste",
+      "label": "Possibili tubazioni/cavi interferenti?",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "si",
+        "no",
+        "da_verificare"
+      ]
+    },
+    {
+      "id": "stato.materiali_sospetti",
+      "label": "Materiali sospetti o non identificati?",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "si",
+        "no",
+        "da_verificare"
+      ],
+      "help": "Se sì, sospendere le operazioni interessate finché non verificati da soggetti qualificati"
+    },
+    {
+      "id": "stato.protezione_impianti",
+      "label": "Impianti esistenti da proteggere o isolare?",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "si",
+        "no",
+        "da_verificare"
+      ]
+    },
+    {
+      "id": "demolizione.pavimento",
+      "label": "Rimuovere le piastrelle del pavimento?",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "si",
+        "no",
+        "da_verificare"
+      ],
+      "visible_when": {
+        "eq": [
+          "interventi.demolizione_rivestimenti",
+          "si"
+        ]
+      }
+    },
+    {
+      "id": "demolizione.pareti",
+      "label": "Rimuovere le piastrelle alle pareti?",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "si",
+        "no",
+        "da_verificare"
+      ],
+      "visible_when": {
+        "eq": [
+          "interventi.demolizione_rivestimenti",
+          "si"
+        ]
+      }
+    },
+    {
+      "id": "demolizione.pavimento_area",
+      "label": "Superficie di demolizione pavimento",
+      "type": "decimal",
+      "required_when_visible": true,
+      "visible_when": {
+        "all": [
+          {
+            "eq": [
+              "interventi.demolizione_rivestimenti",
+              "si"
+            ]
+          },
+          {
+            "eq": [
+              "demolizione.pavimento",
+              "si"
+            ]
+          }
+        ]
+      },
+      "unit": "m²",
+      "help": "Precompilare dalla geometria ma consentire modifica motivata"
+    },
+    {
+      "id": "demolizione.massetto",
+      "label": "Rimuovere anche il massetto?",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "si",
+        "no",
+        "da_verificare"
+      ],
+      "visible_when": {
+        "all": [
+          {
+            "eq": [
+              "interventi.demolizione_rivestimenti",
+              "si"
+            ]
+          },
+          {
+            "eq": [
+              "demolizione.pavimento",
+              "si"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "demolizione.massetto_spessore",
+      "label": "Spessore massetto da rimuovere",
+      "type": "decimal",
+      "required_when_visible": true,
+      "visible_when": {
+        "all": [
+          {
+            "eq": [
+              "interventi.demolizione_rivestimenti",
+              "si"
+            ]
+          },
+          {
+            "eq": [
+              "demolizione.massetto",
+              "si"
+            ]
+          }
+        ]
+      },
+      "unit": "cm"
+    },
+    {
+      "id": "demolizione.muri[].demolisci",
+      "label": "Demolire il rivestimento di questa parete?",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "si",
+        "no",
+        "da_verificare"
+      ],
+      "repeat_in": "geometria.muri",
+      "visible_when": {
+        "all": [
+          {
+            "eq": [
+              "interventi.demolizione_rivestimenti",
+              "si"
+            ]
+          },
+          {
+            "eq": [
+              "demolizione.pareti",
+              "si"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "demolizione.muri[].fascia_da",
+      "label": "Quota inizio demolizione parete",
+      "type": "decimal",
+      "required_when_visible": true,
+      "visible_when": {
+        "all": [
+          {
+            "eq": [
+              "interventi.demolizione_rivestimenti",
+              "si"
+            ]
+          },
+          {
+            "eq": [
+              "demolizione.pareti",
+              "si"
+            ]
+          }
+        ]
+      },
+      "unit": "m",
+      "repeat_in": "geometria.muri"
+    },
+    {
+      "id": "demolizione.muri[].fascia_a",
+      "label": "Quota fine demolizione parete",
+      "type": "decimal",
+      "required_when_visible": true,
+      "visible_when": {
+        "all": [
+          {
+            "eq": [
+              "interventi.demolizione_rivestimenti",
+              "si"
+            ]
+          },
+          {
+            "eq": [
+              "demolizione.pareti",
+              "si"
+            ]
+          }
+        ]
+      },
+      "unit": "m",
+      "repeat_in": "geometria.muri"
+    },
+    {
+      "id": "demolizione.rimozione_collanti",
+      "label": "Rimozione adesivo residuo inclusa?",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "si",
+        "no",
+        "da_verificare"
+      ],
+      "visible_when": {
+        "eq": [
+          "interventi.demolizione_rivestimenti",
+          "si"
+        ]
+      }
+    },
+    {
+      "id": "demolizione.ripristino_intonaco",
+      "label": "Previsione ripristino intonaco/sottofondo?",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "compreso",
+        "opzionale",
+        "escluso",
+        "da_verificare"
+      ],
+      "visible_when": {
+        "eq": [
+          "interventi.demolizione_rivestimenti",
+          "si"
+        ]
+      },
+      "help": "Non inferire automaticamente ripristino dopo demolizione"
+    },
+    {
+      "id": "demolizione.parti_da_conservare",
+      "label": "Elementi da conservare e proteggere",
+      "type": "multitext",
+      "required_when_visible": false,
+      "visible_when": {
+        "eq": [
+          "interventi.demolizione_rivestimenti",
+          "si"
+        ]
+      }
+    },
+    {
+      "id": "demolizione.foto_criticita",
+      "label": "Foto superfici da demolire",
+      "type": "photo",
+      "required_when_visible": false,
+      "visible_when": {
+        "eq": [
+          "interventi.demolizione_rivestimenti",
+          "si"
+        ]
+      }
+    },
+    {
+      "id": "pavimento.modalita",
+      "label": "Nuovo pavimento: modalità di intervento",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "su_esistente",
+        "dopo_demolizione",
+        "da_verificare"
+      ],
+      "visible_when": {
+        "eq": [
+          "interventi.nuovo_pavimento",
+          "si"
+        ]
+      }
+    },
+    {
+      "id": "pavimento.tipo",
+      "label": "Materiale di finitura",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "gres",
+        "ceramica",
+        "pietra",
+        "altro",
+        "da_definire"
+      ],
+      "visible_when": {
+        "eq": [
+          "interventi.nuovo_pavimento",
+          "si"
+        ]
+      }
+    },
+    {
+      "id": "pavimento.formato",
+      "label": "Formato piastrella",
+      "type": "text",
+      "required_when_visible": true,
+      "visible_when": {
+        "eq": [
+          "interventi.nuovo_pavimento",
+          "si"
+        ]
+      },
+      "help": "Es. 60x60 cm; permette controllo extra su grandi formati"
+    },
+    {
+      "id": "pavimento.schema",
+      "label": "Schema posa",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "diritta",
+        "sfalsata",
+        "diagonale",
+        "altro",
+        "da_definire"
+      ],
+      "visible_when": {
+        "eq": [
+          "interventi.nuovo_pavimento",
+          "si"
+        ]
+      }
+    },
+    {
+      "id": "pavimento.fornitura",
+      "label": "Fornitura piastrelle",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "cliente",
+        "impresa",
+        "da_definire"
+      ],
+      "visible_when": {
+        "eq": [
+          "interventi.nuovo_pavimento",
+          "si"
+        ]
+      }
+    },
+    {
+      "id": "pavimento.materiali_posa",
+      "label": "Chi fornisce adesivi, stucco, sigillanti?",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "impresa",
+        "cliente",
+        "mista",
+        "da_definire"
+      ],
+      "visible_when": {
+        "eq": [
+          "interventi.nuovo_pavimento",
+          "si"
+        ]
+      }
+    },
+    {
+      "id": "pavimento.superficie_posa",
+      "label": "Superficie posa pavimento",
+      "type": "decimal",
+      "required_when_visible": true,
+      "visible_when": {
+        "eq": [
+          "interventi.nuovo_pavimento",
+          "si"
+        ]
+      },
+      "unit": "m²",
+      "help": "Precompilare dalla geometria meno superfici non pavimentate come ingombri fissi confermati; consentire override motivato e tracciato"
+    },
+    {
+      "id": "pavimento.pendenza_doccia",
+      "label": "Presenza di doccia a filo pavimento o pendenze speciali?",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "si",
+        "no",
+        "da_verificare"
+      ],
+      "visible_when": {
+        "eq": [
+          "interventi.nuovo_pavimento",
+          "si"
+        ]
+      }
+    },
+    {
+      "id": "pavimento.dettagli_pendenza",
+      "label": "Quote, scarico, pendenze e responsabilità",
+      "type": "multitext",
+      "required_when_visible": true,
+      "visible_when": {
+        "all": [
+          {
+            "eq": [
+              "interventi.nuovo_pavimento",
+              "si"
+            ]
+          },
+          {
+            "eq": [
+              "pavimento.pendenza_doccia",
+              "si"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "pavimento.compatibilita_quote",
+      "label": "Quote porte/soglie, altezza finale verificate?",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "si",
+        "no",
+        "da_verificare"
+      ],
+      "visible_when": {
+        "eq": [
+          "interventi.nuovo_pavimento",
+          "si"
+        ]
+      }
+    },
+    {
+      "id": "pavimento.fondo_lavori",
+      "label": "Preparazione fondo necessaria",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "nessuna_verificata",
+        "rasatura",
+        "autolivellante",
+        "ripristino_massetto",
+        "da_verificare"
+      ],
+      "visible_when": {
+        "eq": [
+          "interventi.nuovo_pavimento",
+          "si"
+        ]
+      }
+    },
+    {
+      "id": "pavimento.giunti",
+      "label": "Giunti esistenti e perimetrali verificati?",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "si",
+        "no",
+        "da_verificare"
+      ],
+      "visible_when": {
+        "eq": [
+          "interventi.nuovo_pavimento",
+          "si"
+        ]
+      }
+    },
+    {
+      "id": "pavimento.soglia",
+      "label": "Nuove soglie o profili pavimento?",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "si",
+        "no",
+        "da_verificare"
+      ],
+      "visible_when": {
+        "eq": [
+          "interventi.nuovo_pavimento",
+          "si"
+        ]
+      }
+    },
+    {
+      "id": "pavimento.battiscopa",
+      "label": "Battiscopa previsto?",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "si",
+        "no",
+        "sostituito_da_rivestimento_pareti",
+        "da_verificare"
+      ],
+      "visible_when": {
+        "eq": [
+          "interventi.nuovo_pavimento",
+          "si"
+        ]
+      }
+    },
+    {
+      "id": "pavimento.battiscopa_ml",
+      "label": "Metri lineari battiscopa",
+      "type": "decimal",
+      "required_when_visible": true,
+      "visible_when": {
+        "all": [
+          {
+            "eq": [
+              "interventi.nuovo_pavimento",
+              "si"
+            ]
+          },
+          {
+            "eq": [
+              "pavimento.battiscopa",
+              "si"
+            ]
+          }
+        ]
+      },
+      "unit": "m"
+    },
+    {
+      "id": "pareti.muri[].posa",
+      "label": "Rivestire questo muro?",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "si",
+        "no",
+        "da_verificare"
+      ],
+      "visible_when": {
+        "eq": [
+          "interventi.rivestimento_pareti",
+          "si"
+        ]
+      },
+      "repeat_in": "geometria.muri"
+    },
+    {
+      "id": "pareti.muri[].fascia_da",
+      "label": "Quota inizio nuovo rivestimento",
+      "type": "decimal",
+      "required_when_visible": true,
+      "visible_when": {
+        "eq": [
+          "interventi.rivestimento_pareti",
+          "si"
+        ]
+      },
+      "unit": "m",
+      "repeat_in": "geometria.muri"
+    },
+    {
+      "id": "pareti.muri[].fascia_a",
+      "label": "Quota fine nuovo rivestimento",
+      "type": "decimal",
+      "required_when_visible": true,
+      "visible_when": {
+        "eq": [
+          "interventi.rivestimento_pareti",
+          "si"
+        ]
+      },
+      "unit": "m",
+      "repeat_in": "geometria.muri"
+    },
+    {
+      "id": "pareti.tipo",
+      "label": "Materiale rivestimento",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "gres",
+        "ceramica",
+        "mosaico",
+        "pietra",
+        "altro",
+        "da_definire"
+      ],
+      "visible_when": {
+        "eq": [
+          "interventi.rivestimento_pareti",
+          "si"
+        ]
+      }
+    },
+    {
+      "id": "pareti.formato",
+      "label": "Formato piastrella parete",
+      "type": "text",
+      "required_when_visible": true,
+      "visible_when": {
+        "eq": [
+          "interventi.rivestimento_pareti",
+          "si"
+        ]
+      }
+    },
+    {
+      "id": "pareti.schema",
+      "label": "Schema di posa pareti",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "diritta",
+        "sfalsata",
+        "verticale",
+        "diagonale",
+        "altro",
+        "da_definire"
+      ],
+      "visible_when": {
+        "eq": [
+          "interventi.rivestimento_pareti",
+          "si"
+        ]
+      }
+    },
+    {
+      "id": "pareti.fornitura",
+      "label": "Fornitura piastrelle parete",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "cliente",
+        "impresa",
+        "da_definire"
+      ],
+      "visible_when": {
+        "eq": [
+          "interventi.rivestimento_pareti",
+          "si"
+        ]
+      }
+    },
+    {
+      "id": "pareti.materiali_posa",
+      "label": "Adesivi, stucco e profili forniti da",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "impresa",
+        "cliente",
+        "mista",
+        "da_definire"
+      ],
+      "visible_when": {
+        "eq": [
+          "interventi.rivestimento_pareti",
+          "si"
+        ]
+      }
+    },
+    {
+      "id": "pareti.zona_doccia",
+      "label": "Le zone rivestite comprendono pareti doccia/bagno?",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "si",
+        "no",
+        "da_verificare"
+      ],
+      "visible_when": {
+        "eq": [
+          "interventi.rivestimento_pareti",
+          "si"
+        ]
+      }
+    },
+    {
+      "id": "pareti.impermeabilizzazione",
+      "label": "Impermeabilizzazione in zone bagnate",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "compresa",
+        "separata_da_preventivare",
+        "a_carico_terzi",
+        "non_applicabile",
+        "da_verificare"
+      ],
+      "visible_when": {
+        "all": [
+          {
+            "eq": [
+              "interventi.rivestimento_pareti",
+              "si"
+            ]
+          },
+          {
+            "eq": [
+              "pareti.zona_doccia",
+              "si"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "pareti.profilo_spigoli",
+      "label": "Finitura spigoli esterni",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "profilo",
+        "jolly_45",
+        "altra",
+        "non_presenti",
+        "da_definire"
+      ],
+      "visible_when": {
+        "eq": [
+          "interventi.rivestimento_pareti",
+          "si"
+        ]
+      }
+    },
+    {
+      "id": "pareti.spigoli_esterni_ml",
+      "label": "Metri lineari profili spigoli",
+      "type": "decimal",
+      "required_when_visible": true,
+      "visible_when": {
+        "all": [
+          {
+            "eq": [
+              "interventi.rivestimento_pareti",
+              "si"
+            ]
+          },
+          {
+            "eq": [
+              "pareti.profilo_spigoli",
+              "profilo"
+            ]
+          }
+        ]
+      },
+      "unit": "m"
+    },
+    {
+      "id": "pareti.niche",
+      "label": "Nicchie, mensole o rientranze da rivestire?",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "si",
+        "no",
+        "da_verificare"
+      ],
+      "visible_when": {
+        "eq": [
+          "interventi.rivestimento_pareti",
+          "si"
+        ]
+      }
+    },
+    {
+      "id": "pareti.niche_dettagli",
+      "label": "Misure facce nicchie e numero tagli",
+      "type": "multitext",
+      "required_when_visible": true,
+      "visible_when": {
+        "all": [
+          {
+            "eq": [
+              "interventi.rivestimento_pareti",
+              "si"
+            ]
+          },
+          {
+            "eq": [
+              "pareti.niche",
+              "si"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "pareti.forature",
+      "label": "Fori per tubazioni, cassette, rubinetti, prese",
+      "type": "integer",
+      "required_when_visible": true,
+      "visible_when": {
+        "eq": [
+          "interventi.rivestimento_pareti",
+          "si"
+        ]
+      }
+    },
+    {
+      "id": "pareti.supporto_prep",
+      "label": "Regolarizzazione pareti",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "non_necessaria_verificata",
+        "rasatura",
+        "ripristino_intonaco",
+        "da_verificare"
+      ],
+      "visible_when": {
+        "eq": [
+          "interventi.rivestimento_pareti",
+          "si"
+        ]
+      }
+    },
+    {
+      "id": "pareti.sigillature",
+      "label": "Giunti, angoli e raccordi da sigillare definiti?",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "si",
+        "no",
+        "da_verificare"
+      ],
+      "visible_when": {
+        "eq": [
+          "interventi.rivestimento_pareti",
+          "si"
+        ]
+      }
+    },
+    {
+      "id": "logistica.accesso",
+      "label": "Accesso al bagno",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "agevole",
+        "stretto",
+        "scale",
+        "difficoltoso",
+        "da_verificare"
+      ]
+    },
+    {
+      "id": "logistica.ascensore",
+      "label": "Ascensore disponibile e utilizzabile?",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "si",
+        "no",
+        "da_verificare"
+      ]
+    },
+    {
+      "id": "logistica.parcheggio",
+      "label": "Possibilità carico/scarico",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "agevole",
+        "limitata",
+        "da_verificare"
+      ]
+    },
+    {
+      "id": "logistica.protezioni",
+      "label": "Proteggere passaggi/arredi/altri ambienti?",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "si",
+        "no",
+        "da_verificare"
+      ]
+    },
+    {
+      "id": "logistica.scarico_rifiuti",
+      "label": "Gestione e conferimento materiali di risulta",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "impresa",
+        "cliente_da_verificare",
+        "terzo_autorizzato",
+        "da_definire"
+      ],
+      "visible_when": {
+        "eq": [
+          "interventi.demolizione_rivestimenti",
+          "si"
+        ]
+      }
+    },
+    {
+      "id": "logistica.volume_macerie",
+      "label": "Volume o peso stimato macerie",
+      "type": "decimal",
+      "required_when_visible": false,
+      "visible_when": {
+        "eq": [
+          "interventi.demolizione_rivestimenti",
+          "si"
+        ]
+      },
+      "unit": "m³",
+      "help": "Stima indicativa; da validare prima di logistica e conferimento"
+    },
+    {
+      "id": "logistica.fornitura_trasporti",
+      "label": "Trasporto materiali nuovi",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "impresa",
+        "cliente",
+        "fornitore",
+        "da_definire"
+      ]
+    },
+    {
+      "id": "logistica.note",
+      "label": "Note accesso e vincoli",
+      "type": "multitext",
+      "required_when_visible": false
+    },
+    {
+      "id": "controllo.foto_generali",
+      "label": "Fotografie panoramiche del bagno",
+      "type": "photo",
+      "required_when_visible": false
+    },
+    {
+      "id": "controllo.tipo_prezzo",
+      "label": "Modalità preventivazione",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "misura",
+        "corpo"
+      ]
+    },
+    {
+      "id": "controllo.criterio_detr",
+      "label": "Criterio contrattuale detrazione aperture",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "misura_netta",
+        "misura_lorda",
+        "regola_concordata",
+        "da_definire"
+      ],
+      "help": "Non impostare un criterio di pagamento nascosto dentro il calcolo geometrico",
+      "visible_when": {
+        "eq": [
+          "controllo.tipo_prezzo",
+          "misura"
+        ]
+      }
+    },
+    {
+      "id": "controllo.note_committente",
+      "label": "Richieste e preferenze del cliente",
+      "type": "multitext",
+      "required_when_visible": false
+    },
+    {
+      "id": "controllo.revisione_umana",
+      "label": "Revisione misure, inclusioni ed esclusioni effettuata?",
+      "type": "choice",
+      "required_when_visible": true,
+      "options": [
+        "si",
+        "no",
+        "da_verificare"
+      ]
+    }
+  ],
+  "condition_language": {
+    "eq": [
+      "field.path",
+      "expected_value"
+    ],
+    "all": [
+      "condition"
+    ],
+    "any": [
+      "condition"
+    ],
+    "not": "condition"
+  },
+  "rules": [
+    {
+      "id": "R01",
+      "severity": "block",
+      "when": {
+        "all": [
+          {
+            "eq": [
+              "interventi.nuovo_pavimento",
+              "si"
+            ]
+          },
+          {
+            "eq": [
+              "pavimento.modalita",
+              "dopo_demolizione"
+            ]
+          },
+          {
+            "eq": [
+              "demolizione.pavimento",
+              "no"
+            ]
+          }
+        ]
+      },
+      "action": "resolve_conflict",
+      "message": "Il pavimento nuovo è previsto dopo demolizione, ma la demolizione del pavimento è esclusa."
+    },
+    {
+      "id": "R02",
+      "severity": "block",
+      "when": {
+        "all": [
+          {
+            "eq": [
+              "interventi.nuovo_pavimento",
+              "si"
+            ]
+          },
+          {
+            "eq": [
+              "pavimento.modalita",
+              "su_esistente"
+            ]
+          },
+          {
+            "eq": [
+              "demolizione.pavimento",
+              "si"
+            ]
+          }
+        ]
+      },
+      "action": "resolve_conflict",
+      "message": "Sovrapposizione richiesta su pavimento che verrà demolito: chiarire il ciclo."
+    },
+    {
+      "id": "R03",
+      "severity": "review",
+      "when": {
+        "all": [
+          {
+            "eq": [
+              "interventi.nuovo_pavimento",
+              "si"
+            ]
+          },
+          {
+            "eq": [
+              "pavimento.modalita",
+              "su_esistente"
+            ]
+          }
+        ]
+      },
+      "action": "review_support",
+      "message": "Sovrapposizione: verificare tenuta, planarità, quote, compatibilità con supporto e porte."
+    },
+    {
+      "id": "R04",
+      "severity": "suggest",
+      "when": {
+        "all": [
+          {
+            "eq": [
+              "interventi.nuovo_pavimento",
+              "si"
+            ]
+          },
+          {
+            "any": [
+              {
+                "eq": [
+                  "stato.supporto_pavimento",
+                  "non_planare"
+                ]
+              },
+              {
+                "eq": [
+                  "stato.supporto_pavimento",
+                  "fessurato"
+                ]
+              },
+              {
+                "eq": [
+                  "stato.supporto_pavimento",
+                  "distaccato"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "action": "propose_separate_item",
+      "message": "Proporre valutazione preparazione/ripristino fondo come voce separata. Non aggiungere automaticamente."
+    },
+    {
+      "id": "R05",
+      "severity": "block",
+      "when": {
+        "all": [
+          {
+            "eq": [
+              "interventi.rivestimento_pareti",
+              "si"
+            ]
+          },
+          {
+            "eq": [
+              "pareti.zona_doccia",
+              "si"
+            ]
+          },
+          {
+            "eq": [
+              "pareti.impermeabilizzazione",
+              "da_verificare"
+            ]
+          }
+        ]
+      },
+      "action": "resolve_scope",
+      "message": "Definire responsabilità dell’impermeabilizzazione nelle zone direttamente bagnate."
+    },
+    {
+      "id": "R06",
+      "severity": "review",
+      "when": {
+        "all": [
+          {
+            "eq": [
+              "interventi.rivestimento_pareti",
+              "si"
+            ]
+          },
+          {
+            "eq": [
+              "pareti.zona_doccia",
+              "si"
+            ]
+          }
+        ]
+      },
+      "action": "review_detail",
+      "message": "Controllare angoli, attacchi, passaggi impianti e raccordi del sistema impermeabile."
+    },
+    {
+      "id": "R07",
+      "severity": "block",
+      "when": {
+        "all": [
+          {
+            "eq": [
+              "interventi.demolizione_rivestimenti",
+              "si"
+            ]
+          },
+          {
+            "eq": [
+              "stato.materiali_sospetti",
+              "si"
+            ]
+          }
+        ]
+      },
+      "action": "pause_and_escalate",
+      "message": "STOP per la specifica lavorazione: non procedere finché un soggetto qualificato non ha chiarito la natura dei materiali sospetti."
+    },
+    {
+      "id": "R08",
+      "severity": "review",
+      "when": {
+        "all": [
+          {
+            "eq": [
+              "interventi.demolizione_rivestimenti",
+              "si"
+            ]
+          },
+          {
+            "eq": [
+              "logistica.scarico_rifiuti",
+              "da_definire"
+            ]
+          }
+        ]
+      },
+      "action": "assign_responsibility",
+      "message": "Definire raccolta, movimentazione, trasporto e conferimento rifiuti."
+    },
+    {
+      "id": "R09",
+      "severity": "review",
+      "when": {
+        "all": [
+          {
+            "eq": [
+              "interventi.nuovo_pavimento",
+              "si"
+            ]
+          },
+          {
+            "eq": [
+              "pavimento.pendenza_doccia",
+              "si"
+            ]
+          }
+        ]
+      },
+      "action": "separate_special_work",
+      "message": "Pendenze e raccordi scarico doccia: valutare lavorazione specifica e quote."
+    },
+    {
+      "id": "R10",
+      "severity": "review",
+      "when": {
+        "all": [
+          {
+            "eq": [
+              "interventi.nuovo_pavimento",
+              "si"
+            ]
+          },
+          {
+            "eq": [
+              "pavimento.compatibilita_quote",
+              "no"
+            ]
+          }
+        ]
+      },
+      "action": "raise_issue",
+      "message": "Verificare rialzo pavimento, luce porte, soglie e interferenze prima della posa."
+    },
+    {
+      "id": "R11",
+      "severity": "review",
+      "when": {
+        "all": [
+          {
+            "eq": [
+              "interventi.nuovo_pavimento",
+              "si"
+            ]
+          },
+          {
+            "eq": [
+              "pavimento.battiscopa",
+              "si"
+            ]
+          },
+          {
+            "eq": [
+              "interventi.rivestimento_pareti",
+              "si"
+            ]
+          }
+        ]
+      },
+      "action": "cross_check",
+      "message": "Verificare che battiscopa e rivestimento a tutta altezza non si sovrappongano sugli stessi tratti."
+    },
+    {
+      "id": "R12",
+      "severity": "review",
+      "when": {
+        "all": [
+          {
+            "eq": [
+              "interventi.rivestimento_pareti",
+              "si"
+            ]
+          },
+          {
+            "eq": [
+              "pareti.profilo_spigoli",
+              "jolly_45"
+            ]
+          }
+        ]
+      },
+      "action": "estimate_detail",
+      "message": "Tagli a jolly: richiedere dettaglio e valutazione economica separata."
+    },
+    {
+      "id": "R13",
+      "severity": "review",
+      "when": {
+        "all": [
+          {
+            "eq": [
+              "interventi.rivestimento_pareti",
+              "si"
+            ]
+          },
+          {
+            "eq": [
+              "pareti.niche",
+              "si"
+            ]
+          }
+        ]
+      },
+      "action": "add_faces",
+      "message": "Misurare anche le facce interne delle nicchie senza contare due volte aperture e ritorni."
+    },
+    {
+      "id": "R14",
+      "severity": "block",
+      "when": {
+        "all": [
+          {
+            "eq": [
+              "interventi.nuovo_pavimento",
+              "si"
+            ]
+          },
+          {
+            "eq": [
+              "pavimento.fornitura",
+              "da_definire"
+            ]
+          }
+        ]
+      },
+      "action": "resolve_supply",
+      "message": "Fornitura piastrelle pavimento non assegnata."
+    },
+    {
+      "id": "R15",
+      "severity": "block",
+      "when": {
+        "all": [
+          {
+            "eq": [
+              "interventi.rivestimento_pareti",
+              "si"
+            ]
+          },
+          {
+            "eq": [
+              "pareti.fornitura",
+              "da_definire"
+            ]
+          }
+        ]
+      },
+      "action": "resolve_supply",
+      "message": "Fornitura piastrelle parete non assegnata."
+    },
+    {
+      "id": "R16",
+      "severity": "review",
+      "when": {
+        "all": [
+          {
+            "eq": [
+              "interventi.nuovo_pavimento",
+              "si"
+            ]
+          },
+          {
+            "eq": [
+              "pavimento.fondo_lavori",
+              "da_verificare"
+            ]
+          }
+        ]
+      },
+      "action": "flag_item",
+      "message": "Preparazione del fondo pavimento non definita; non considerarla compresa."
+    },
+    {
+      "id": "R17",
+      "severity": "review",
+      "when": {
+        "all": [
+          {
+            "eq": [
+              "interventi.rivestimento_pareti",
+              "si"
+            ]
+          },
+          {
+            "eq": [
+              "pareti.supporto_prep",
+              "da_verificare"
+            ]
+          }
+        ]
+      },
+      "action": "flag_item",
+      "message": "Preparazione del fondo pareti non definita; non considerarla compresa."
+    },
+    {
+      "id": "R18",
+      "severity": "block",
+      "when": {
+        "all": [
+          {
+            "eq": [
+              "controllo.tipo_prezzo",
+              "misura"
+            ]
+          },
+          {
+            "eq": [
+              "controllo.criterio_detr",
+              "da_definire"
+            ]
+          }
+        ]
+      },
+      "action": "resolve_contract_measure",
+      "message": "Criterio di detrazione delle aperture da concordare prima del preventivo a misura."
+    },
+    {
+      "id": "R19",
+      "severity": "block",
+      "when": {
+        "eq": [
+          "controllo.revisione_umana",
+          "no"
+        ]
+      },
+      "action": "require_review",
+      "message": "Conferma umana obbligatoria prima del definitivo."
+    },
+    {
+      "id": "R20",
+      "severity": "review",
+      "when": {
+        "all": [
+          {
+            "eq": [
+              "interventi.demolizione_rivestimenti",
+              "si"
+            ]
+          },
+          {
+            "eq": [
+              "stato.sanitari_interferenti",
+              "si"
+            ]
+          },
+          {
+            "eq": [
+              "stato.responsabile_smontaggi",
+              "da_definire"
+            ]
+          }
+        ]
+      },
+      "action": "assign_responsibility",
+      "message": "Smontaggio/rimontaggio di sanitari interferenti non assegnato."
+    },
+    {
+      "id": "R21",
+      "severity": "review",
+      "when": {
+        "all": [
+          {
+            "eq": [
+              "interventi.rivestimento_pareti",
+              "si"
+            ]
+          },
+          {
+            "eq": [
+              "pareti.zona_doccia",
+              "si"
+            ]
+          },
+          {
+            "eq": [
+              "pareti.impermeabilizzazione",
+              "a_carico_terzi"
+            ]
+          }
+        ]
+      },
+      "action": "record_dependency",
+      "message": "Registrare l’esecuzione e verifica preliminare da parte di terzi."
+    },
+    {
+      "id": "R22",
+      "severity": "block",
+      "when": {
+        "eq": [
+          "geometria.forma",
+          "da_verificare"
+        ]
+      },
+      "action": "require_measure",
+      "message": "Forma/superficie non definita; impossibile validare le quantità."
+    },
+    {
+      "id": "R23",
+      "severity": "review",
+      "when": {
+        "any": [
+          {
+            "eq": [
+              "logistica.accesso",
+              "difficoltoso"
+            ]
+          },
+          {
+            "eq": [
+              "logistica.parcheggio",
+              "limitata"
+            ]
+          }
+        ]
+      },
+      "action": "logistic_supplement",
+      "message": "Valutare maggiori oneri di movimentazione e protezione, senza aggiunta automatica."
+    },
+    {
+      "id": "R24",
+      "severity": "review",
+      "when": {
+        "all": [
+          {
+            "eq": [
+              "interventi.demolizione_rivestimenti",
+              "si"
+            ]
+          },
+          {
+            "eq": [
+              "demolizione.ripristino_intonaco",
+              "da_verificare"
+            ]
+          }
+        ]
+      },
+      "action": "flag_item",
+      "message": "L’entità dei ripristini dopo demolizione potrebbe essere determinabile solo dopo apertura."
+    },
+    {
+      "id": "R25",
+      "severity": "review",
+      "when": {
+        "all": [
+          {
+            "eq": [
+              "interventi.nuovo_pavimento",
+              "si"
+            ]
+          },
+          {
+            "eq": [
+              "pavimento.giunti",
+              "da_verificare"
+            ]
+          }
+        ]
+      },
+      "action": "check_joints",
+      "message": "Giunti di movimento e raccordi ancora da verificare."
+    },
+    {
+      "id": "R26",
+      "severity": "block",
+      "when": {
+        "all": [
+          {
+            "eq": [
+              "interventi.nuovo_pavimento",
+              "si"
+            ]
+          },
+          {
+            "eq": [
+              "pavimento.tipo",
+              "da_definire"
+            ]
+          }
+        ]
+      },
+      "action": "resolve_finish",
+      "message": "Materiale di finitura del pavimento da definire prima del definitivo."
+    },
+    {
+      "id": "R27",
+      "severity": "block",
+      "when": {
+        "all": [
+          {
+            "eq": [
+              "interventi.rivestimento_pareti",
+              "si"
+            ]
+          },
+          {
+            "eq": [
+              "pareti.tipo",
+              "da_definire"
+            ]
+          }
+        ]
+      },
+      "action": "resolve_finish",
+      "message": "Materiale di finitura delle pareti da definire prima del definitivo."
+    },
+    {
+      "id": "R28",
+      "severity": "review",
+      "when": {
+        "any": [
+          {
+            "eq": [
+              "stato.supporto_pareti",
+              "umido"
+            ]
+          },
+          {
+            "eq": [
+              "stato.supporto_pavimento",
+              "umido"
+            ]
+          }
+        ]
+      },
+      "action": "diagnostic_required",
+      "message": "Umidità rilevata: richiedere approfondimento tecnico e non scegliere automaticamente il ciclo."
+    },
+    {
+      "id": "R29",
+      "severity": "block",
+      "when": {
+        "all": [
+          {
+            "eq": [
+              "interventi.demolizione_rivestimenti",
+              "si"
+            ]
+          },
+          {
+            "eq": [
+              "demolizione.pavimento",
+              "da_verificare"
+            ]
+          },
+          {
+            "eq": [
+              "demolizione.pareti",
+              "da_verificare"
+            ]
+          }
+        ]
+      },
+      "action": "scope_unclear",
+      "message": "Estensione delle demolizioni non definita."
+    },
+    {
+      "id": "R30",
+      "severity": "review",
+      "when": {
+        "all": [
+          {
+            "eq": [
+              "interventi.rivestimento_pareti",
+              "si"
+            ]
+          },
+          {
+            "eq": [
+              "pareti.sigillature",
+              "da_verificare"
+            ]
+          }
+        ]
+      },
+      "action": "check_joints",
+      "message": "Definire sigillature e giunti elastici agli angoli e raccordi."
+    }
+  ],
+  "measurement_policy": {
+    "units": "m / m² / ml / cm; persist raw values with measurement provenance",
+    "room_floor": "rectangle: length*width; irregular: verified polygon or explicitly confirmed surveyed area",
+    "wall_band": "length*(to-from) minus openings intersecting the vertical band minus other non-overlapping excluded surfaces",
+    "opening_overlap": "width * max(0,min(aperture_top,band_top)-max(aperture_bottom,band_bottom))",
+    "demolition_wall_vs_new_wall": "keep separate demolition and new-covering heights per wall",
+    "measure_charge": "geometric net measurements are separate from contractual billed quantities and deduction conventions",
+    "waste": "packaging/offcut quantity calculated separately for purchasing, never silently added to billable installed m²",
+    "precision": "store decimal values without early rounding; round only in presentation and financial totals"
+  },
+  "commercial_defaults": {
+    "posa_piastrelle_pavimento": {
+      "price": 40,
+      "unit": "m²",
+      "kind": "reference_only"
+    },
+    "posa_piastrelle_parete": {
+      "price": 50,
+      "unit": "m²",
+      "kind": "reference_only"
+    },
+    "demolizione_pavimento": {
+      "price": 45,
+      "unit": "m²",
+      "kind": "reference_only",
+      "warning": "confermare perimetro e cosa comprende la tariffa"
+    },
+    "demolizione_parete": {
+      "price": null,
+      "unit": "m²",
+      "kind": "unknown_do_not_guess"
+    },
+    "all_reference_prices": "indicativi dalla memoria listino; non includono automaticamente forniture, supplementi e IVA; richiedono approvazione"
+  },
+  "dedupe_keys": [
+    "sopralluogo_id",
+    "ambiente_id",
+    "surface_id",
+    "lavorazione_codice",
+    "strato_rimosso_o_posato"
+  ],
+  "output_states": [
+    "BOZZA",
+    "DEFINITIVO_BLOCKED",
+    "DEFINITIVO_READY"
+  ],
+  "pricing_mapping": {
+    "misura": {
+      "tipo_prezzo": "misura",
+      "item_fields": [
+        "titolo",
+        "descrizione",
+        "quantita",
+        "um",
+        "prezzo_unitario",
+        "importo",
+        "passaggi",
+        "riferimenti"
+      ],
+      "rule": "quantita*prezzo_unitario=importo; all priced items consistent"
+    },
+    "corpo": {
+      "tipo_prezzo": "corpo",
+      "item_fields": [
+        "titolo",
+        "descrizione",
+        "passaggi",
+        "riferimenti"
+      ],
+      "rule": "retain private quantity ledger and price build-up; emit approved overall total, no implicit sum of passaggi"
+    },
+    "always": "export exclusions, scope, delivery responsibilities and explicit unverified items; review legal/customer info via V3.1 validator"
+  },
+  "notes": [
+    "This is a data-driven implementation specification, not a functioning connected app.",
+    "Do not equate \"da_verificare\" with false or zero.",
+    "R06/R07 and similar review rules must be escalated manually even if no definitive block flag exists.",
+    "Impermabilizzazione/materiali sospetti require qualified technical assessment.",
+    "GE360 Smart V1: aggiunta selezione per parete di demolizione; fasce calcolate solo quando demolisci=si."
+  ],
+  "validation_checks": [
+    {
+      "id": "V01",
+      "scope": "global",
+      "severity": "block",
+      "description": "Tutti i campi visibili e obbligatori devono avere un valore esplicito (\"da_verificare\" non è conferma)"
+    },
+    {
+      "id": "V02",
+      "scope": "geometry",
+      "severity": "block",
+      "description": "Larghezze, lunghezze e altezze > 0, aree >= 0; nessun NaN, infinito o valore non numerico"
+    },
+    {
+      "id": "V03",
+      "scope": "geometry",
+      "severity": "block",
+      "description": "Fasce pareti: 0 <= quota_da < quota_a <= altezza_muro; aperture all’interno del muro; escluse sovrapposte non duplicabili"
+    },
+    {
+      "id": "V04",
+      "scope": "geometry",
+      "severity": "review",
+      "description": "Per stanza rettangolare, somma lunghezze muri confrontata con perimetro, tolleranza configurabile; segnala differenze"
+    },
+    {
+      "id": "V05",
+      "scope": "geometry",
+      "severity": "block",
+      "description": "Superficie netta dopo detrazioni >= 0; la quantità fatturabile non viene dedotta implicitamente dalla geometria"
+    },
+    {
+      "id": "V06",
+      "scope": "pricing",
+      "severity": "block",
+      "description": "A misura importo=quantità*prezzo_unitario, totale=somma importi; a corpo importo approvato e voci interne tenute separate"
+    },
+    {
+      "id": "V07",
+      "scope": "pricing",
+      "severity": "block",
+      "description": "Non esportare prezzo vuoto come zero né convertire voci DA_VERIFICARE in comprese"
+    },
+    {
+      "id": "V08",
+      "scope": "pricing",
+      "severity": "block",
+      "description": "Chiave anti duplicato: sopralluogo+ambiente+superficie+lavorazione+strato; conflitti manualmente risolti"
+    },
+    {
+      "id": "V09",
+      "scope": "data",
+      "severity": "block",
+      "description": "Ogni risposta contiene stato, timestamp, autore/dispositivo, eventuale foto e motivazione dell’override"
+    },
+    {
+      "id": "V10",
+      "scope": "workflow",
+      "severity": "block",
+      "description": "Per definitivo devono essere risolte tutte le condizioni BLOCK, mantenendo gli WARNING esplicitati"
+    }
+  ]
+}

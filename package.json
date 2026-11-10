@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "name": "ge360-smart-pwa",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "PWA senza dipendenze npm; Node necessario soltanto per test facoltativi",
+  "scripts": {
+    "test": "node --test tests/test_frontend.mjs"
+  }
+}

@@ -11,7 +11,9 @@ fi
 
 if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   files="$(git ls-files)"
-  if printf '%s\n' "$files" | grep -E '(^|/)(\.env($|\.)|data/|photos/|backups/|secrets/)|\.(sqlite|sqlite3|db|pem|key)$'; then
+  if printf '%s\n' "$files" \
+    | grep -E '(^|/)(\.env($|\.)|data/|photos/|backups/|secrets/)|\.(sqlite|sqlite3|db|pem|key)$' \
+    | grep -v -E '(^|/)\.env\.example$'; then
     echo "ERRORE: file riservato tracciato da Git, interrompo." >&2
     exit 1
   fi
