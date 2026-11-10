@@ -78,3 +78,5 @@ Roadmap iniziale, da dettagliare solo dopo l'ispezione dei sorgenti V1:
 - **2026-11-10 — Chiarimento requisiti API:** preferito riuso dell'API FastAPI già presente per i futuri collegamenti; esclusi sistemi complessi di credenziali o nuove API. Nessun codice modificato; prossimo passo invariato: collaudo Debian 13.
 
 - **2026-11-10 — collaudo Debian, falso positivo `.env.example`:** clone `feat/import-pwa-v1` riuscito su JARVIS; ambiente verificato (Debian 13, Docker/Compose, Git, Tailscale, porta 8095 libera). `scripts/test_locale.sh` bloccava erroneamente `.env.example`, pur essendo esplicitamente consentito da `.gitignore`. Corretto il filtro mantenendo il blocco per `.env` reali e altri file sensibili. Prossimo passo: `git pull --ff-only` e rilancio test locali sul Debian.
+
+- **2026-11-10 — correzione tecnica del fix test locale:** il primo aggiornamento remoto di `scripts/test_locale.sh` è stato rilevato come malformato durante la verifica post-commit e sostituito prima del pull sul Debian. Il file corretto consente solo `.env.example` e continua a bloccare `.env` reali e file sensibili. Nessun comando di installazione eseguito sul server in questa fase.

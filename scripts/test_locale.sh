@@ -12,34 +12,8 @@ fi
 if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   files="$(git ls-files)"
   if printf '%s\n' "$files" \
-    | grep -E '(^|/)(\.env($|\.)|data/|photos/|backups/|secrets/)|\.(sqlite|sqlite3|db|pem|key)
-fi
-
-[[ -d tests ]] || { echo "Tests non ancora caricati nel repository."; exit 2; }
-command -v python3 >/dev/null || { echo "python3 non trovato."; exit 2; }
-python3 -m pytest -q
-
-if command -v node >/dev/null 2>&1 && [[ -f tests/test_frontend.mjs ]]; then
-  node --test tests/test_frontend.mjs
-else
-  echo "Test frontend ignorati (Node o test non presenti)."
-fi
-echo "Test locali completati. Nessun GitHub Actions utilizzato."
- \
-    | grep -v -E '(^|/)\.env\.example
-fi
-
-[[ -d tests ]] || { echo "Tests non ancora caricati nel repository."; exit 2; }
-command -v python3 >/dev/null || { echo "python3 non trovato."; exit 2; }
-python3 -m pytest -q
-
-if command -v node >/dev/null 2>&1 && [[ -f tests/test_frontend.mjs ]]; then
-  node --test tests/test_frontend.mjs
-else
-  echo "Test frontend ignorati (Node o test non presenti)."
-fi
-echo "Test locali completati. Nessun GitHub Actions utilizzato."
-; then
+    | grep -E '(^|/)(\.env($|\.)|data/|photos/|backups/|secrets/)|\.(sqlite|sqlite3|db|pem|key)$' \
+    | grep -v -E '(^|/)\.env\.example$'; then
     echo "ERRORE: file riservato tracciato da Git, interrompo." >&2
     exit 1
   fi
