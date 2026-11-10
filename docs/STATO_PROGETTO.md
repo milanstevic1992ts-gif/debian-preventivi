@@ -18,15 +18,15 @@ Roadmap iniziale, da dettagliare solo dopo l'ispezione dei sorgenti V1:
 
 ## Fase attuale
 
-**Fase 2 — importazione PWA V1 completata sul branch dedicato, integrazione da approvare.** I sorgenti del pacchetto verificato sono stati preparati per la revisione GitHub. Non è stato eseguito un deploy né avviata l'applicazione sul Debian dell'utente.
+**Fase 3 — collaudo locale su Debian 13 in corso.** Il branch `feat/import-pwa-v1` è stato clonato sul server JARVIS; Debian 13, Docker, Docker Compose, Git, Tailscale e porta 8095 sono stati verificati. Il primo test locale ha individuato un falso positivo su `.env.example`, corretto in questo commit. Nessun container è stato ancora avviato.
 
 ## Task in corso
 
-**Importazione PWA V1 conclusa sul branch dedicato.** Sorgenti, script di pubblicazione senza push a `main`, documentazione coerente e test locali verificati. Le PR impilate restano soggette a revisione/merge autorizzato.
+**Installazione/collaudo Debian 13 in corso.** Correggere il falso positivo del controllo file riservati e rilanciare `bash scripts/test_locale.sh` sul clone JARVIS prima di creare `.env` o avviare Docker.
 
 ## Prossimo passo
 
-**Eseguire il collaudo locale su Debian 13 del branch PWA V1 dopo approvazione e integrazione delle PR**, verificando Docker Compose, binding `127.0.0.1:8095` e risposta `/api/health`, senza toccare i dati reali o configurare Tailscale prima della verifica.
+**Sul server JARVIS aggiornare il branch con `git pull --ff-only` e rilanciare `bash scripts/test_locale.sh`.** Solo se i test passano, procedere alla creazione locale di `.env` e all'avvio Docker su `127.0.0.1:8095`.
 
 ## Decisioni
 
@@ -76,3 +76,5 @@ Roadmap iniziale, da dettagliare solo dopo l'ispezione dei sorgenti V1:
 - **2026-11-10 — Requisito futuro richiesto:** confermata la presenza delle API FastAPI di base; registrata nel Parcheggio la futura interoperabilità con altri software GE360. Nessun nuovo endpoint o protocollo di sincronizzazione implementato, nessuna modifica al prossimo passo di collaudo locale Debian.
 
 - **2026-11-10 — Chiarimento requisiti API:** preferito riuso dell'API FastAPI già presente per i futuri collegamenti; esclusi sistemi complessi di credenziali o nuove API. Nessun codice modificato; prossimo passo invariato: collaudo Debian 13.
+
+- **2026-11-10 — collaudo Debian, falso positivo `.env.example`:** clone `feat/import-pwa-v1` riuscito su JARVIS; ambiente verificato (Debian 13, Docker/Compose, Git, Tailscale, porta 8095 libera). `scripts/test_locale.sh` bloccava erroneamente `.env.example`, pur essendo esplicitamente consentito da `.gitignore`. Corretto il filtro mantenendo il blocco per `.env` reali e altri file sensibili. Prossimo passo: `git pull --ff-only` e rilancio test locali sul Debian.
