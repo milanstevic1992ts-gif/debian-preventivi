@@ -18,15 +18,15 @@ Roadmap iniziale, da dettagliare solo dopo l'ispezione dei sorgenti V1:
 
 ## Fase attuale
 
-**Fase 3 — collaudo locale su Debian 13 in corso.** Il branch `feat/import-pwa-v1` è stato clonato sul server JARVIS; Debian 13, Docker, Docker Compose, Git, Tailscale e porta 8095 sono stati verificati. Il primo test locale ha individuato un falso positivo su `.env.example`, corretto in questo commit. Nessun container è stato ancora avviato.
+**Fase 4 — accesso privato e verifica smartphone da avviare.** Il collaudo locale Debian 13 è completato: GE360 Smart 1.0.0 gira in Docker sul server JARVIS, esposto solo su `127.0.0.1:8095`, con healthcheck `healthy` e `GET /api/health` rispondente.
 
 ## Task in corso
 
-**Installazione/collaudo Debian 13 in corso.** Il branch è clonato sul server JARVIS e le dipendenze di test sono installate in `.venv`. Sul Debian 13 reale sono stati superati **8/8 test backend** e **9/9 test frontend**. Rimane da creare la configurazione locale `.env`, avviare Docker e verificare `/api/health` su `127.0.0.1:8095`.
+**Installazione/collaudo Debian 13 concluso.** Sul server JARVIS sono stati superati **8/8 test backend** e **9/9 test frontend**; il container `ge360-smart-sopralluoghi-ge360-smart-1` risulta `running`, `RestartCount=0`, `Health=healthy`, con binding `127.0.0.1:8095->8095/tcp`. `.env` e `data/` restano locali al server e fuori da Git.
 
 ## Prossimo passo
 
-**Sul server JARVIS eseguire l'installazione Docker controllata**, creando `.env` e `data/` solo localmente, avviando il container su `127.0.0.1:8095` e verificando `docker compose ps` e `GET /api/health`. Non configurare ancora Tailscale Serve.
+**Verificare la configurazione Tailscale Serve esistente sul server JARVIS e, senza alterare altri servizi, pubblicare GE360 in HTTPS privato sulla tailnet.** Poi aprire la PWA da smartphone e verificare login, installabilità e primo sopralluogo fittizio. Non usare Tailscale Funnel.
 
 ## Decisioni
 
@@ -86,3 +86,5 @@ Roadmap iniziale, da dettagliare solo dopo l'ispezione dei sorgenti V1:
 - **2026-11-10 — collaudo Debian, test applicativi superati:** creato `.venv` locale sul server JARVIS e installate le dipendenze applicative/test; `python -m pytest -q` → **8 passed** (1 warning di deprecazione Starlette/httpx, non bloccante); test frontend Node → **9 passed, 0 fail**. Nessun GitHub Actions utilizzato. Prossimo passo: avvio Docker controllato su `127.0.0.1:8095`, senza ancora configurare Tailscale Serve.
 
 - **2026-11-10 — ambiente virtuale locale:** aggiunto `.venv/` a `.gitignore` per evitare che le dipendenze Python installate sul Debian possano essere tracciate accidentalmente. Nessun dato applicativo modificato.
+
+- **2026-11-10 — collaudo Docker Debian completato:** build `ge360-smart:v1` riuscita; container `ge360-smart-sopralluoghi-ge360-smart-1` avviato con binding locale `127.0.0.1:8095->8095/tcp`; `GET /api/health` → `{"ok":true,"service":"GE360 Smart","version":"1.0.0"}`; stato Docker `running`, `RestartCount=0`, health `healthy`. Installazione locale completata senza configurare Tailscale Serve o Funnel. Prossimo passo: esposizione HTTPS privata via Tailscale Serve e collaudo smartphone.
