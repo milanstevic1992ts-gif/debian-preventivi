@@ -1,0 +1,21 @@
+# GE360 Smart - dati riservati e credenziali
+.env*
+!.env.example
+data/
+photos/
+backups/
+secrets/
+*.sqlite
+*.sqlite3
+*.sqlite3-*
+*.db
+*.db-*
+*.pem
+*.key
+
+# Cache / dipendenze / file temporanei
+__pycache__/
+.pytest_cache/
+node_modules/
+*.pyc
+.DS_Store
