@@ -22,11 +22,11 @@ Roadmap iniziale, da dettagliare solo dopo l'ispezione dei sorgenti V1:
 
 ## Task in corso
 
-**Installazione/collaudo Debian 13 in corso.** Il clone è aggiornato al commit `767ac59`; il controllo file riservati ora passa, ma `pytest` si interrompe in raccolta perché il Python utente non contiene Pillow (`ModuleNotFoundError: PIL`). Nessun container è stato ancora avviato.
+**Installazione/collaudo Debian 13 in corso.** Il branch è clonato sul server JARVIS e le dipendenze di test sono installate in `.venv`. Sul Debian 13 reale sono stati superati **8/8 test backend** e **9/9 test frontend**. Rimane da creare la configurazione locale `.env`, avviare Docker e verificare `/api/health` su `127.0.0.1:8095`.
 
 ## Prossimo passo
 
-**Sul server JARVIS creare un ambiente virtuale locale `.venv`, installare `requirements.txt` e le dipendenze di test, quindi rieseguire i test usando `.venv/bin/python`.** Solo se i test passano, procedere alla creazione locale di `.env` e all'avvio Docker su `127.0.0.1:8095`.
+**Sul server JARVIS eseguire l'installazione Docker controllata**, creando `.env` e `data/` solo localmente, avviando il container su `127.0.0.1:8095` e verificando `docker compose ps` e `GET /api/health`. Non configurare ancora Tailscale Serve.
 
 ## Decisioni
 
@@ -82,3 +82,5 @@ Roadmap iniziale, da dettagliare solo dopo l'ispezione dei sorgenti V1:
 - **2026-11-10 — correzione tecnica del fix test locale:** il primo aggiornamento remoto di `scripts/test_locale.sh` è stato rilevato come malformato durante la verifica post-commit e sostituito prima del pull sul Debian. Il file corretto consente solo `.env.example` e continua a bloccare `.env` reali e file sensibili. Nessun comando di installazione eseguito sul server in questa fase.
 
 - **2026-11-10 — collaudo Debian, dipendenza Python mancante:** dopo il pull a `767ac59`, `scripts/test_locale.sh` supera il controllo file riservati ma `pytest` si ferma durante la raccolta con `ModuleNotFoundError: No module named 'PIL'`. `requirements.txt` dichiara già `Pillow>=10,<13`; il problema è l'ambiente Python utente incompleto, non il codice applicativo. Prossimo passo: ambiente virtuale locale e reinstallazione controllata delle dipendenze prima dei test.
+
+- **2026-11-10 — collaudo Debian, test applicativi superati:** creato `.venv` locale sul server JARVIS e installate le dipendenze applicative/test; `python -m pytest -q` → **8 passed** (1 warning di deprecazione Starlette/httpx, non bloccante); test frontend Node → **9 passed, 0 fail**. Nessun GitHub Actions utilizzato. Prossimo passo: avvio Docker controllato su `127.0.0.1:8095`, senza ancora configurare Tailscale Serve.
