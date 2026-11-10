@@ -22,11 +22,11 @@ Roadmap iniziale, da dettagliare solo dopo l'ispezione dei sorgenti V1:
 
 ## Task in corso
 
-**Installazione/collaudo Debian 13 in corso.** Correggere il falso positivo del controllo file riservati e rilanciare `bash scripts/test_locale.sh` sul clone JARVIS prima di creare `.env` o avviare Docker.
+**Installazione/collaudo Debian 13 in corso.** Il clone è aggiornato al commit `767ac59`; il controllo file riservati ora passa, ma `pytest` si interrompe in raccolta perché il Python utente non contiene Pillow (`ModuleNotFoundError: PIL`). Nessun container è stato ancora avviato.
 
 ## Prossimo passo
 
-**Sul server JARVIS aggiornare il branch con `git pull --ff-only` e rilanciare `bash scripts/test_locale.sh`.** Solo se i test passano, procedere alla creazione locale di `.env` e all'avvio Docker su `127.0.0.1:8095`.
+**Sul server JARVIS creare un ambiente virtuale locale `.venv`, installare `requirements.txt` e le dipendenze di test, quindi rieseguire i test usando `.venv/bin/python`.** Solo se i test passano, procedere alla creazione locale di `.env` e all'avvio Docker su `127.0.0.1:8095`.
 
 ## Decisioni
 
@@ -80,3 +80,5 @@ Roadmap iniziale, da dettagliare solo dopo l'ispezione dei sorgenti V1:
 - **2026-11-10 — collaudo Debian, falso positivo `.env.example`:** clone `feat/import-pwa-v1` riuscito su JARVIS; ambiente verificato (Debian 13, Docker/Compose, Git, Tailscale, porta 8095 libera). `scripts/test_locale.sh` bloccava erroneamente `.env.example`, pur essendo esplicitamente consentito da `.gitignore`. Corretto il filtro mantenendo il blocco per `.env` reali e altri file sensibili. Prossimo passo: `git pull --ff-only` e rilancio test locali sul Debian.
 
 - **2026-11-10 — correzione tecnica del fix test locale:** il primo aggiornamento remoto di `scripts/test_locale.sh` è stato rilevato come malformato durante la verifica post-commit e sostituito prima del pull sul Debian. Il file corretto consente solo `.env.example` e continua a bloccare `.env` reali e file sensibili. Nessun comando di installazione eseguito sul server in questa fase.
+
+- **2026-11-10 — collaudo Debian, dipendenza Python mancante:** dopo il pull a `767ac59`, `scripts/test_locale.sh` supera il controllo file riservati ma `pytest` si ferma durante la raccolta con `ModuleNotFoundError: No module named 'PIL'`. `requirements.txt` dichiara già `Pillow>=10,<13`; il problema è l'ambiente Python utente incompleto, non il codice applicativo. Prossimo passo: ambiente virtuale locale e reinstallazione controllata delle dipendenze prima dei test.
