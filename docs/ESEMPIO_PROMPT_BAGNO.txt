@@ -1,0 +1,254 @@
+GE360 SMART SOPRALLUOGO — DATI PER GPT PREVENTIVI PREMIUM V3.1
+Documento di trasferimento dati, NON un preventivo DEFINITIVO già approvato.
+ISTRUZIONI AL GPT:
+Genera soltanto una BOZZA del preventivo con istruzioni e asset V3.1 già disponibili nel GPT.
+Non inventare quantità, prezzi, forniture, validità, IVA o condizioni contrattuali.
+Distingui ciò che è confermato da ciò che è da verificare o escluso.
+Usa il listino V3.1 solo come riferimento; chiedi conferma dei prezzi e delle inclusioni.
+Non duplicare demolizione, intonaci, battiscopa, impermeabilizzazioni o smaltimenti.
+Segnala criticità tecniche e i blocchi prima di qualunque emissione DEFINITIVA.
+
+IDENTIFICAZIONE
+Cliente: CLIENTE DIMOSTRATIVO
+Telefono: NON INDICATO
+Indirizzo: Via Esempio 10, Trieste
+Piano: 2
+Ambiente: Bagno principale
+Data rilievo: 2026-11-10
+Modalità prezzo: corpo
+
+MISURE CALCOLATE (geometriche, da verificare per computo)
+{
+  "floor_m2": 4.32,
+  "perimeter_m": 8.4,
+  "walls": [
+    {
+      "index": 1,
+      "name": "M1",
+      "length_m": 2.4,
+      "height_m": 2.7,
+      "gross_m2": 6.48,
+      "demolition": {
+        "from_m": 0.0,
+        "to_m": 1.8,
+        "gross_m2": 4.32,
+        "openings_m2": 0.0,
+        "net_m2": 4.32
+      },
+      "new_covering": {
+        "from_m": 0.0,
+        "to_m": 2.4,
+        "gross_m2": 5.76,
+        "openings_m2": 0.0,
+        "net_m2": 5.76
+      }
+    },
+    {
+      "index": 2,
+      "name": "M2",
+      "length_m": 1.8,
+      "height_m": 2.7,
+      "gross_m2": 4.86,
+      "demolition": {
+        "from_m": 0.0,
+        "to_m": 1.8,
+        "gross_m2": 3.24,
+        "openings_m2": 0.0,
+        "net_m2": 3.24
+      },
+      "new_covering": {
+        "from_m": 0.0,
+        "to_m": 2.4,
+        "gross_m2": 4.32,
+        "openings_m2": 0.0,
+        "net_m2": 4.32
+      }
+    },
+    {
+      "index": 3,
+      "name": "M3",
+      "length_m": 2.4,
+      "height_m": 2.7,
+      "gross_m2": 6.48,
+      "demolition": {
+        "from_m": 0.0,
+        "to_m": 1.8,
+        "gross_m2": 4.32,
+        "openings_m2": 0.0,
+        "net_m2": 4.32
+      },
+      "new_covering": {
+        "from_m": 0.0,
+        "to_m": 2.4,
+        "gross_m2": 5.76,
+        "openings_m2": 0.0,
+        "net_m2": 5.76
+      }
+    },
+    {
+      "index": 4,
+      "name": "M4",
+      "length_m": 1.8,
+      "height_m": 2.7,
+      "gross_m2": 4.86,
+      "demolition": {
+        "from_m": 0.0,
+        "to_m": 1.8,
+        "gross_m2": 3.24,
+        "openings_m2": 0.0,
+        "net_m2": 3.24
+      },
+      "new_covering": {
+        "from_m": 0.0,
+        "to_m": 2.4,
+        "gross_m2": 4.32,
+        "openings_m2": 0.0,
+        "net_m2": 4.32
+      }
+    }
+  ],
+  "demolition_wall_m2": 15.12,
+  "new_wall_covering_m2": 20.16,
+  "measurement_notes": [
+    "Quantità geometriche indicative: non sostituiscono i criteri contrattuali di misurazione.",
+    "Le zone escluse e le facce delle nicchie devono essere verificate manualmente; non sono detratte/aggiunte automaticamente.",
+    "Verificare che le aperture inserite non si sovrappongano: non è nota la posizione orizzontale."
+  ],
+  "new_floor_m2": 4.32,
+  "demolition_floor_m2": 4.32
+}
+
+RACCOLTA DELLE RISPOSTE
+
+[IDENTIFICAZIONE]
+cliente.nome: CLIENTE DIMOSTRATIVO
+
+[IDENTIFICAZIONE]
+immobile.indirizzo: Via Esempio 10, Trieste
+immobile.piano: 2
+
+[IDENTIFICAZIONE]
+ambiente.nome: Bagno principale
+
+[IDENTIFICAZIONE]
+sopralluogo.data: 2026-11-10
+
+[INTERVENTI SCELTI]
+interventi.demolizione_rivestimenti: si
+interventi.nuovo_pavimento: si
+interventi.rivestimento_pareti: si
+
+[MISURE E PARETI]
+geometria.forma: rettangolare
+geometria.larghezza: 1,80
+geometria.lunghezza: 2,40
+geometria.metodo_misura: laser
+geometria.muri[0].altezza: 2,70
+geometria.muri[0].id: M1
+geometria.muri[0].lunghezza: 2,40
+geometria.muri[1].altezza: 2,70
+geometria.muri[1].id: M2
+geometria.muri[1].lunghezza: 1,80
+geometria.muri[2].altezza: 2,70
+geometria.muri[2].id: M3
+geometria.muri[2].lunghezza: 2,40
+geometria.muri[3].altezza: 2,70
+geometria.muri[3].id: M4
+geometria.muri[3].lunghezza: 1,80
+
+[DEMOLIZIONI]
+demolizione.muri[0].demolisci: si
+demolizione.muri[0].fascia_a: 1,80
+demolizione.muri[0].fascia_da: 0
+demolizione.muri[1].demolisci: si
+demolizione.muri[1].fascia_a: 1,80
+demolizione.muri[1].fascia_da: 0
+demolizione.muri[2].demolisci: si
+demolizione.muri[2].fascia_a: 1,80
+demolizione.muri[2].fascia_da: 0
+demolizione.muri[3].demolisci: si
+demolizione.muri[3].fascia_a: 1,80
+demolizione.muri[3].fascia_da: 0
+demolizione.pareti: si
+demolizione.pavimento: si
+demolizione.pavimento_area: 4,32
+
+[NUOVO PAVIMENTO]
+pavimento.modalita: dopo_demolizione
+pavimento.superficie_posa: 4,32
+pavimento.tipo: gres
+
+[RIVESTIMENTI PARETI]
+pareti.muri[0].fascia_a: 2,40
+pareti.muri[0].fascia_da: 0
+pareti.muri[0].posa: si
+pareti.muri[1].fascia_a: 2,40
+pareti.muri[1].fascia_da: 0
+pareti.muri[1].posa: si
+pareti.muri[2].fascia_a: 2,40
+pareti.muri[2].fascia_da: 0
+pareti.muri[2].posa: si
+pareti.muri[3].fascia_a: 2,40
+pareti.muri[3].fascia_da: 0
+pareti.muri[3].posa: si
+
+[LOGISTICA]
+logistica.scarico_rifiuti: da_definire
+
+[CONTROLLI FINALI]
+controllo.revisione_umana: no
+controllo.tipo_prezzo: corpo
+
+FOTO ALLEGATE (non incluse nel prompt testuale)
+Nessuna foto salvata sul server; caricarle separatamente se necessarie.
+
+CONTROLLI E DATI NON RISOLTI
+[REVIEW] Definire raccolta, movimentazione, trasporto e conferimento rifiuti.
+[BLOCK] Conferma umana obbligatoria prima del definitivo.
+[MANCANTE] sopralluogo.stato: Stato rilevazione
+[MANCANTE] ambiente.in_uso: Il bagno resterà utilizzabile durante i lavori?
+[MANCANTE] stato.pavimento_attuale: Finitura pavimento esistente
+[MANCANTE] stato.pareti_attuali: Finitura pareti esistente
+[MANCANTE] stato.supporto_pavimento: Condizione supporto pavimento
+[MANCANTE] stato.supporto_pareti: Condizione supporti pareti
+[MANCANTE] stato.sanitari_interferenti: Sanitari o mobili da smontare?
+[MANCANTE] stato.tubazioni_nascoste: Possibili tubazioni/cavi interferenti?
+[MANCANTE] stato.materiali_sospetti: Materiali sospetti o non identificati?
+[MANCANTE] stato.protezione_impianti: Impianti esistenti da proteggere o isolare?
+[MANCANTE] demolizione.massetto: Rimuovere anche il massetto?
+[MANCANTE] demolizione.rimozione_collanti: Rimozione adesivo residuo inclusa?
+[MANCANTE] demolizione.ripristino_intonaco: Previsione ripristino intonaco/sottofondo?
+[MANCANTE] pavimento.formato: Formato piastrella
+[MANCANTE] pavimento.schema: Schema posa
+[MANCANTE] pavimento.fornitura: Fornitura piastrelle
+[MANCANTE] pavimento.materiali_posa: Chi fornisce adesivi, stucco, sigillanti?
+[MANCANTE] pavimento.pendenza_doccia: Presenza di doccia a filo pavimento o pendenze speciali?
+[MANCANTE] pavimento.compatibilita_quote: Quote porte/soglie, altezza finale verificate?
+[MANCANTE] pavimento.fondo_lavori: Preparazione fondo necessaria
+[MANCANTE] pavimento.giunti: Giunti esistenti e perimetrali verificati?
+[MANCANTE] pavimento.soglia: Nuove soglie o profili pavimento?
+[MANCANTE] pavimento.battiscopa: Battiscopa previsto?
+[MANCANTE] pareti.tipo: Materiale rivestimento
+[MANCANTE] pareti.formato: Formato piastrella parete
+[MANCANTE] pareti.schema: Schema di posa pareti
+[MANCANTE] pareti.fornitura: Fornitura piastrelle parete
+[MANCANTE] pareti.materiali_posa: Adesivi, stucco e profili forniti da
+[MANCANTE] pareti.zona_doccia: Le zone rivestite comprendono pareti doccia/bagno?
+[MANCANTE] pareti.profilo_spigoli: Finitura spigoli esterni
+[MANCANTE] pareti.niche: Nicchie, mensole o rientranze da rivestire?
+[MANCANTE] pareti.forature: Fori per tubazioni, cassette, rubinetti, prese
+[MANCANTE] pareti.supporto_prep: Regolarizzazione pareti
+[MANCANTE] pareti.sigillature: Giunti, angoli e raccordi da sigillare definiti?
+[MANCANTE] logistica.accesso: Accesso al bagno
+[MANCANTE] logistica.ascensore: Ascensore disponibile e utilizzabile?
+[MANCANTE] logistica.parcheggio: Possibilità carico/scarico
+[MANCANTE] logistica.protezioni: Proteggere passaggi/arredi/altri ambienti?
+[MANCANTE] logistica.scarico_rifiuti: Gestione e conferimento materiali di risulta
+[MANCANTE] logistica.fornitura_trasporti: Trasporto materiali nuovi
+
+OUTPUT RICHIESTO:
+1) Esamina incongruenze e informazioni da confermare.
+2) Prepara il computo con quantità distinte da quelle da verificare.
+3) Genera una BOZZA in grafica Premium V3.1; non trattarla come definitiva.
+4) Per la versione definitiva attendi conferma umana esplicita di tutti gli importi e delle condizioni.
+FINE DATI GE360
