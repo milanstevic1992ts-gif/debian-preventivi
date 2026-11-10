@@ -18,15 +18,15 @@ Roadmap iniziale, da dettagliare solo dopo l'ispezione dei sorgenti V1:
 
 ## Fase attuale
 
-**Fase 4 — accesso privato e verifica smartphone da avviare.** Il collaudo locale Debian 13 è completato: GE360 Smart 1.0.0 gira in Docker sul server JARVIS, esposto solo su `127.0.0.1:8095`, con healthcheck `healthy` e `GET /api/health` rispondente.
+**Fase 4 — accesso privato attivo, collaudo smartphone da completare.** Il collaudo locale Debian 13 è completato: GE360 Smart 1.0.0 gira in Docker sul server JARVIS, esposto solo su `127.0.0.1:8095`, con healthcheck `healthy`. Tailscale Serve HTTPS è attivo sulla porta `8445`, tailnet only, e inoltra a `http://127.0.0.1:8095`.
 
 ## Task in corso
 
-**Installazione/collaudo Debian 13 concluso.** Sul server JARVIS sono stati superati **8/8 test backend** e **9/9 test frontend**; il container `ge360-smart-sopralluoghi-ge360-smart-1` risulta `running`, `RestartCount=0`, `Health=healthy`, con binding `127.0.0.1:8095->8095/tcp`. `.env` e `data/` restano locali al server e fuori da Git.
+**Accesso privato Tailscale configurato.** Sul server JARVIS sono stati superati **8/8 test backend** e **9/9 test frontend**; il container `ge360-smart-sopralluoghi-ge360-smart-1` risulta `running`, `RestartCount=0`, `Health=healthy`, con binding `127.0.0.1:8095->8095/tcp`. Tailscale Serve espone GE360 solo nella tailnet su HTTPS `:8445`. `.env` e `data/` restano locali al server e fuori da Git.
 
 ## Prossimo passo
 
-**Verificare la configurazione Tailscale Serve esistente sul server JARVIS e, senza alterare altri servizi, pubblicare GE360 in HTTPS privato sulla tailnet.** Poi aprire la PWA da smartphone e verificare login, installabilità e primo sopralluogo fittizio. Non usare Tailscale Funnel.
+**Da smartphone con Tailscale attivo aprire `https://ge360-server.taile742de.ts.net:8445/` e collaudare login, installabilità PWA e creazione di un sopralluogo fittizio.** Verificare che refresh/riapertura mantengano i dati; non usare Tailscale Funnel.
 
 ## Decisioni
 
@@ -88,3 +88,5 @@ Roadmap iniziale, da dettagliare solo dopo l'ispezione dei sorgenti V1:
 - **2026-11-10 — ambiente virtuale locale:** aggiunto `.venv/` a `.gitignore` per evitare che le dipendenze Python installate sul Debian possano essere tracciate accidentalmente. Nessun dato applicativo modificato.
 
 - **2026-11-10 — collaudo Docker Debian completato:** build `ge360-smart:v1` riuscita; container `ge360-smart-sopralluoghi-ge360-smart-1` avviato con binding locale `127.0.0.1:8095->8095/tcp`; `GET /api/health` → `{"ok":true,"service":"GE360 Smart","version":"1.0.0"}`; stato Docker `running`, `RestartCount=0`, health `healthy`. Installazione locale completata senza configurare Tailscale Serve o Funnel. Prossimo passo: esposizione HTTPS privata via Tailscale Serve e collaudo smartphone.
+
+- **2026-11-10 — Tailscale Serve GE360 attivato:** aggiunta configurazione HTTPS privata `https://ge360-server.taile742de.ts.net:8445/` (tailnet only) con proxy verso `http://127.0.0.1:8095`. Le configurazioni esistenti su 443, 8443, 8444 e gli altri proxy sono rimaste invariate. Nessun Funnel attivato. Prossimo passo: collaudo da smartphone.
